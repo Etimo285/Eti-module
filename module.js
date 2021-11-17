@@ -19,8 +19,10 @@ const { client } = require(`${process.env.TOTOBOTENV}/main.js`);
  * 
  * Don't put spaces in commands, your command will not be recognised.
  */
+
 exports.commands = [
-  'ping'
+  'ping',
+  'random'
 ]
 exports.commandsNSFW = [
   'nsfwping'
@@ -52,19 +54,23 @@ exports.process = async (message, args) => {
   channel = message.channel;
 
   switch(command) {
-  case 'ping':
-    ping();
-    break;
+    case 'ping':
+      ping();
+      break;
 
-  case 'nsfwping':
-    ping();
-    break;
+    case 'random':
+      randomNumber();
+      break;
 
-  default :
-    message.channel.send(
-      MessageEmbedBuilder('SDK test Error', null, null, `La commande ${command} n'existe pas.`)
-    );
-  }
+    case 'nsfwping':
+      ping();
+      break;
+
+    default :
+      message.channel.send(
+        MessageEmbedBuilder('SDK test Error', null, null, `La commande ${command} n'existe pas.`)
+      );
+    }
 }
 
 /**
@@ -78,6 +84,12 @@ function ping() {
   channel.send({
     embeds: [MessageEmbedBuilder(command, url, gif, 'pong!')]
   });
+}
+
+function randomNumber() {
+
+
+  channel.send(`Le nombre en sortie est : ${Math.round(Math.random()*100)}`);
 }
 
 /**
